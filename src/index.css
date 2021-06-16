@@ -1,0 +1,14 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main {
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+hr {
+    border-radius: 3px;
+}
