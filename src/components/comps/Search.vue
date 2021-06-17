@@ -1,12 +1,12 @@
 <template>
 <!-- https://tailwindtemplates.io/search/ -->
-    <div class="bg-white p-4 flex">
+    <div class="bg-white dark:bg-gray-900 p-4 w-full flex">
         <label class="searchLabel">
-            <input :value="value" @input="onInput" class="search w-full p-3 shadow-md bg-gradient-to-r from-red-100 to-blue-100" type="text" placeholder="Notch">
+            <input @keyup.enter="onClick()" :value="value" @input="onInput" class="dark:text-white search w-full p-3 rounded shadow-md bg-gradient-to-r from-red-100 to-blue-100 dark:from-red-500 dark:to-blue-500" type="text" placeholder="Notch">
         </label>
-        <button v-on:click="onClick" @keyup.enter="onClick()" class="bg-blue-400 shadow-md hover:bg-blue-300 text-white m-2 p-2 pl-4 pr-4">
+        <!-- <button v-on:click="onClick"  class="bg-blue-400 shadow-md hover:bg-blue-300 text-white m-2 p-2 pl-4 pr-4">
             <p class="font-semibold text-xs">Search</p>
-        </button>
+        </button> -->
     </div>
 </template>
 
