@@ -11,6 +11,13 @@ async function getUserData(identifier) {
         if (data.data == "") {
             return {name_history: [], error: "Name is avaible"}
         }
+        if (!('name_history' in data.data)) {
+            data.data.name_history = []
+        }
+        if ('unixDropTime' in data.data) {
+            data.data.error = "name is avaible soon"
+            data.data.dropping = true
+        }
         return data.data
     } catch(err) {
         console.log("error", err)

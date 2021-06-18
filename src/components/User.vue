@@ -1,9 +1,14 @@
 <template>
-  <div class="main">
+  <div class="main dark:bg-gray-800 dark:text-white">
     <br>
     {{ userData.error }}
+    <div v-if="!show">
+      <div class="lds-ripple border-green-900 "><div></div><div></div></div>
+      <p>Loading...</p> 
+      <!-- /* border: 4px solid #000; */ -->
+    </div>
 
-    <div v-if="show">
+    <div v-else>
     <!-- <p v-if="userData.error != undefined">
       {{ userData.error }}
     </p> -->
@@ -11,15 +16,15 @@
 
       
       <!-- Skin rendering -->
-      <div class="row-span-2 rounded-md bg-gray-50">
+      <div class="row-span-2 dark:bg-gray-900 rounded-md bg-gray-100 ">
         <!-- <renderer :name=userData.uuid /> -->
         Skin: WIP
       </div>
 
       <!-- User information -->
-      <div class="userdata rounded-md bg-green-50 shadow p-5">
+      <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">User information</p>
-        <hr>
+        <hr class="mb-2 mt-2">
         <p><b>Username</b></p>
         <p>{{ userData.name }}</p>
         <p><b>UUID</b></p>
@@ -28,9 +33,9 @@
         <p>{{ userData.views }}</p>
       </div>
 
-      <div class="userdata rounded-md bg-green-50 shadow p-5 h-40 overflow-auto">
+      <div class="userdata  rounded-md bg-green-50 dark:bg-gray-700 shadow p-5 h-40 overflow-auto">
         <p class="text-lg"> Name history</p>
-        <hr>
+        <hr class="mb-2 mt-2">
           <div v-for="(value, index) in userData.name_history.reverse()" v-bind:key="index">
             <p v-on:click="toUser(value.name)" class="cursor-pointer" ><b>{{ userData.name_history.length - index}}. {{ value.name }}</b></p>
             <p>{{ toTimestamp(value.changedToAt) }}</p>
@@ -38,13 +43,15 @@
           </div>
       </div>
 
-    <div class="rounded-md bg-blue-50">
-      Heads: WIP
+    <div class="userdata rounded-md p-5 bg-blue-100 dark:bg-gray-700 ">
+        <p class="text-lg">Heads</p>
+        <hr class="mb-2 mt-2">
+        WIP
     </div>
 
-      <div class="userdata rounded-md bg-green-50 shadow p-5">
+      <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">Hypixel stats</p>
-        <hr>
+        <hr class="mb-2 mt-2">
         <p><b>WIP</b></p>
         <!-- <p><b>Level</b></p>
         <p>20.5</p>
@@ -74,9 +81,10 @@ export default {
     console.log(this.$route.params.id)
     getUserData(this.$route.params.id).then( userData => {
       this.userData = userData
-        if (userData.error == undefined || userData.error == "") {
-          this.show = true
-        }
+      console.log(userData.error)
+      if (userData.error == undefined || userData.error == "") {
+        this.show = true
+      }
     })
   },
   
@@ -142,5 +150,7 @@ export default {
 .userdata {
   text-align: left;
 }
+
+
 
 </style>

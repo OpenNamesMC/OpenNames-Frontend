@@ -2,7 +2,7 @@
 <!-- https://tailwindtemplates.io/search/ -->
     <div class="bg-white dark:bg-gray-900 p-4 w-full flex">
         <label class="searchLabel">
-            <input @keyup.enter="onClick()" :value="value" @input="onInput" class="dark:text-white search w-full p-3 rounded shadow-md bg-gradient-to-r from-red-100 to-blue-100 dark:from-red-500 dark:to-blue-500" type="text" placeholder="Notch">
+            <input @keyup.enter="onClick()" :value="value" @input="onInput" class="dark:text-white search w-full p-3 rounded shadow-md bg-gradient-to-r from-red-100 to-blue-100 dark:from-red-500 dark:to-blue-500 dark:placeholder-gray-300" type="text" placeholder="Notch">
         </label>
         <!-- <button v-on:click="onClick"  class="bg-blue-400 shadow-md hover:bg-blue-300 text-white m-2 p-2 pl-4 pr-4">
             <p class="font-semibold text-xs">Search</p>
