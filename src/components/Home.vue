@@ -1,35 +1,62 @@
 <template>
   <div class="dark:bg-gray-800 dark:text-white">
       <!-- Title -->
-      <div class="bg-gradient-to-r from-red-50 to-blue-50 dark:from-red-500 dark:to-blue-500 text-center p-10">
-          <p class="text-3xl w-full font-semibold ">OpenNam.es - Everything minecraft names</p>
+      <div class=" text-center p-10">
+          <p class="text-4xl w-full font-semibold ">OpenNam.es - Everything minecraft names</p>
       </div>
 
       <div class="text-center">
-        <p class="text-3xl w-full font-sans p-4 ">Popular names</p>
+        <p class="text-3xl w-full font-sans p-4 ">Popular names this month</p>
       </div>
 
       <!-- List of popular accounts -->
-      <div class="grid gap-4 md:grid-cols-3 grid-cols-1 p-4">
-        <div v-for="index in 9" v-bind:key="index">
-          <div v-on:click="pushUser('notch')" class="bg-gradient-to-r from-red-100 to-blue-100 dark:from-black dark:to-black shadow cursor-pointer p-5 rounded-md">
-            <div class="grid grid-cols-2 gap-4">
-                <img src="https://crafatar.com/avatars/069a79f4-44e9-4726-a5be-fca90e38aaf5?size=50" alt="Head of Notch">
-                <div>
-                    <p>Notch</p>
-                    <!-- <hr class="divider"> -->
-                    <p>100 Searches</p>
-                </div>
+      <div v-if="showPopular">
+        <div class="grid gap-4 md:grid-cols-3 grid-cols-1 p-4 ">
+          <div v-for="index in getPopularUserCount()" v-bind:key="index">
+            <div v-on:click="pushUser(popular.popular[index].name)" class="bg-gradient-to-r from-red-100 to-blue-100 dark:from-black dark:to-black shadow cursor-pointer p-5 m-auto rounded-md h-36">
+              <div class="grid grid-cols-2 gap-4 items-center justify-center m-auto">
+                <img :src="`https://crafatar.com/renders/head/${popular.popular[index].UUID}?size=50`" alt="">
+                  <div class="m-auto">
+                      <p class="font-bold text-md">{{ popular.popular[index].name }}</p>
+                      <!-- <hr class="divider"> -->
+                      <p class="text-sm">Searches: {{ popular.popular[index].monthlyViews }}</p>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-  </div>
+
+      <!-- If loading names -->
+      <div v-else class="flex items-center text-center justify-center">
+        {{ popular }}
+        <div class="py-52">
+          <div v-if="!popular.err">
+            <div class="lds-ripple text-center border-green-900 "><div></div><div></div></div>
+              <p>Loading popular users...</p> 
+            </div>
+          </div>
+        </div>
+      </div>
 </template>
 
 <script>
 // import copy from './comps/Copy.vue'
+import api from '../apiHandler.js'
+
 export default {
+    data: function() {
+      return {
+        popularUserCount: 9,
+        popular: {popular: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], err: ""},
+        showPopular: false,
+      }
+    },
+    created() {
+      this.getPopularUsers().then( () => {
+        this.showPopular = true
+      })
+    },
     // components: { }
     methods: {
       pushUser: function(id) {
@@ -37,8 +64,34 @@ export default {
             name: "user",
             params: {"id": id}
         })
+      },
+    
+      getPopularUserCount: function() {
+        if (window.innerWidth > 768) {
+          return 9
+        }
+        return 3
+      },
+
+      getPopularUsers: async function() {
+        api.getPopularUsers().then( data => {
+          console.log(data)
+          if (!data.err) {
+            this.popular.popular = data.popular
+            this.popular.err = data.err.message
+            this.popular.done = true
+            console.log(this.popular)
+            return true
+          } else {
+            this.popular.err = data.err.message
+            console.error("Couln't load popular users")
+            return false
+          }
+        }
+        )
       }
-    }
+    },
+
 }
 </script>
 

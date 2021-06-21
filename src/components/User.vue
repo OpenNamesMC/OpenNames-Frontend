@@ -1,24 +1,55 @@
 <template>
   <div class="main dark:bg-gray-800 dark:text-white">
     <br>
-    {{ userData.error }}
-    <div v-if="!show">
+    <!-- Show loading spinner while loading -->
+    <div v-if="!show" class="py-52">
       <div class="lds-ripple border-green-900 "><div></div><div></div></div>
       <p>Loading...</p> 
-      <!-- /* border: 4px solid #000; */ -->
     </div>
 
-    <div v-else>
-    <!-- <p v-if="userData.error != undefined">
-      {{ userData.error }}
-    </p> -->
-    <div class="grid gap-4 grid-cols-2">
+    <!--When name is loaded -->
 
+    <div v-else>
+      <!-- If the name is "illegal" -->
+        <div v-if="isIllegal() && (userData.name == undefined)" class="bg-red-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2"> 
+          <p class="text-3xl p-5  text-white">{{ $route.params.id }} is invalid</p>
+          <!-- <p class="text-2xl p-5 text-white">{{ userData.views + '' }} Searches</p> -->
+          <p class="text-2xl p-5 text-white">{{ userData.monthlyViews }} Searches (monthly)</p>
+        </div>
+
+      <!-- If name is avaible -->
+      <div v-else-if="userData.error == 'Name is avaible'">
+        <div class="bg-green-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2"> 
+          <p class="text-3xl p-5  text-white">{{ $route.params.id }} is avaible*</p>
+          <!-- <p class="text-2xl p-5 text-white">{{ userData.views + '' }} Searches</p> -->
+          <p class="text-2xl p-5 text-white">{{ (userData.monthlyViews || '1' ) }} Searches (monthly)</p>
+
+        </div>
+        <div style="text-align: left;">
+          <p class="text-md">*Unless the name is banned by microsoft, or dropping soon and not cached.</p>
+        </div>
+      </div>
+
+      <!-- If name is dropping soon -->
+      <div v-else-if="userData.dropping" class="bg-yellow-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2 items-center justify-center"> 
+        <p class="text-3xl p-5  text-white row-span-2">{{ $route.params.id }} is dropping soon</p>
       
+        <div class="p-5 items-center justify-center">
+          <p class="text-1xl text-white">{{ userData.monthlyViews }} Searches (monthly)</p>
+          <p class="text-1xl text-white">Dropping at {{ toTimestamp(userData.unixDropTime) }}</p>
+        </div>
+      </div>
+
+    <!-- If name is taken -->
+    <div v-else class="grid gap-4 md:grid-cols-2 grid-cols-1">
+
       <!-- Skin rendering -->
-      <div class="row-span-2 dark:bg-gray-900 rounded-md bg-gray-100 ">
-        <!-- <renderer :name=userData.uuid /> -->
-        Skin: WIP
+      <div class="dark:bg-gray-900 rounded-md bg-gray-200 row-span-2 align-middle">
+        <div class="flex items-center justify-center">
+          <renderer :name=userData.uuid />
+          <!-- <img style="position: relative;" :src="`https://crafatar.com/renders/body/${userData.uuid}`" alt="Skin render" /> -->
+          <!-- Skin: WIP -->
+        </div>
       </div>
 
       <!-- User information -->
@@ -29,11 +60,13 @@
         <p>{{ userData.name }}</p>
         <p><b>UUID</b></p>
         <p>{{ userData.uuid }}</p>
-        <p><b>Views</b></p>
-        <p>{{ userData.views }}</p>
+        <p><b>Searches (month)</b></p>
+        <p>{{ userData.monthlyViews }}</p>
+        <p><b>Searches (all)</b></p>
+        <p>{{ userData.lifetimeViews }}</p>
       </div>
 
-      <div class="userdata  rounded-md bg-green-50 dark:bg-gray-700 shadow p-5 h-40 overflow-auto">
+      <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5 h-40 overflow-auto">
         <p class="text-lg"> Name history</p>
         <hr class="mb-2 mt-2">
           <div v-for="(value, index) in userData.name_history.reverse()" v-bind:key="index">
@@ -48,17 +81,13 @@
         <hr class="mb-2 mt-2">
         WIP
     </div>
+    <!-- <div /> -->
 
       <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">Hypixel stats</p>
         <hr class="mb-2 mt-2">
         <p><b>WIP</b></p>
-        <!-- <p><b>Level</b></p>
-        <p>20.5</p>
-        <p><b>Rank</b></p>
-        <p>VIP</p>
-        <p><b>First join</b></p>
-        <p>20.06.1990</p> -->
+
       </div>
 
     </div>
@@ -68,23 +97,24 @@
 
 <script>
 import '../index.css'
-import getUserData from '../apiHandler.js'
-// import renderer from "./comps/PlayerModel"
+import api from '../apiHandler.js'
+import renderer from "./comps/PlayerModel"
 
 export default {
   // name: 'User',
   components: {
-    // renderer
+    renderer
   },
 
   created() {
     console.log(this.$route.params.id)
-    getUserData(this.$route.params.id).then( userData => {
+    api.getUserData(this.$route.params.id).then( userData => {
       this.userData = userData
-      console.log(userData.error)
-      if (userData.error == undefined || userData.error == "") {
-        this.show = true
-      }
+      // userData.views = userData.views.toString()
+      this.show = true
+      // if (userData.error == undefined || userData.error == "") {
+      //   this.show = true
+      // }
     })
   },
   
@@ -97,11 +127,13 @@ export default {
         "name_history": [],
         "views": "--"
       }
-      getUserData(to.params.id).then( userData => {
+      api.getUserData(to.params.id).then( userData => {
         this.userData = userData
-        if (userData.error == undefined || userData.error == "") {
-          this.show = true
-        }
+        
+        // if (userData.error == undefined || userData.error == "") {
+        //   this.show = true
+        // }
+        this.show = true
       })
     }
   },
@@ -126,6 +158,21 @@ export default {
           name: "user",
           params: {"id": user}
       })
+    },
+    isIllegal() {
+      if (this.userData.name == undefined) {
+        if (this.$route.params.id < 30) {
+          // not a UUID
+          return this.userData.name.length > 16 || this.userData.name.length < 3
+        } else {
+          return false
+        }
+      } 
+      // if (this.userData.name != "--") {
+      //   return /^\w{3,16}$/.test(this.userData.name)
+      // } 
+      return this.userData.name.length > 16 || this.userData.name.length < 3
+      // return "invalid"
     }
   },
 
@@ -151,6 +198,13 @@ export default {
   text-align: left;
 }
 
+img {
+  /* width: 80%; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 
 </style>
