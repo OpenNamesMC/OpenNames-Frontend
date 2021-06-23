@@ -50,7 +50,7 @@ import { getCookie, setCookie } from 'tiny-cookie'
 export default {
     data: function() {
         return {
-            currentTheme: ''
+            currentTheme: 'dark'
         }
     },
     created() {
@@ -61,8 +61,8 @@ export default {
         } else if (value == "dark") {
             this.applyDark()
         } else {
-            setCookie('theme', 'light', { expires: '1Y', SameSite: 'strict' });
-            this.applyLight()
+            setCookie('theme', 'dark', { expires: '1D', SameSite: 'strict' });
+            this.applyDark()
         }
     },
     methods: {
@@ -81,13 +81,13 @@ export default {
             let doc = document.getElementsByTagName("body")[0]
             doc.className = "dark bg-gray-800";
             this.currentTheme = "dark"
-            setCookie('theme', 'dark', { expires: '1Y', SameSite: 'strict' });
+            setCookie('theme', 'dark', { expires: '1D', SameSite: 'strict' });
         },
         applyLight: function() {
             let doc = document.getElementsByTagName("body")[0]
             doc.className = "light bg-white";
             this.currentTheme = "light"
-            setCookie('theme', 'light', { expires: '1Y', SameSite: 'strict' });
+            setCookie('theme', 'light', { expires: '1D', SameSite: 'strict' });
         },
     }
 }

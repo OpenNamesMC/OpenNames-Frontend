@@ -74,6 +74,10 @@ export default {
                     name: "WmeLuna",
                     desc: "A very cool person that designed our logo.",
                     url: "https://wmeluna.github.io/"
+                },
+                {
+                    name: "Everyone else that gave tipps or helped",
+                    desc: "Quite a few people gave us tipps on how to do things, recommended libraries, said which design looks better, etc. Notable people are Teun and jordan."
                 }
             ]
         }

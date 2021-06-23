@@ -1,8 +1,10 @@
 <template>
   <div class="dark:bg-gray-800 relative mx-auto overflow-auto h-full">
       <Navbar />
+
       <div class="flex-wrapper">
         <router-view />
+        <br><br>
         <Footer />
       </div>
   </div>

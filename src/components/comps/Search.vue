@@ -1,8 +1,9 @@
 <template>
 <!-- https://tailwindtemplates.io/search/ -->
-    <div class="bg-white dark:bg-gray-900 text-center flex">
-        <label class="searchLabel">
-            <input @keyup.enter="onClick()" :value="value" @input="onInput" class="dark:text-white search w-full p-3 rounded shadow-md bg-gradient-to-r from-red-100 to-blue-100 dark:from-red-500 dark:to-blue-500 dark:placeholder-gray-300" type="text" placeholder="Notch">
+    <div class="bg-white dark:bg-gray-700 text-center flex rounded-xl">
+        <label class="searchLabel rounded-md">
+            <!-- bg-gradient-to-r from-red-100 to-blue-100 dark:from-red-500 dark:to-blue-500 -->
+            <input @keyup.enter="onClick()" :value="value" @input="onInput" class="dark:text-white search rounded  w-full bg-gray-300 dark:bg-gray-700 p-3 shadow-md dark:placeholder-gray-500 placeholder-gray-400" type="text" placeholder="Notch">
     </label>
     </div>
 </template>
@@ -52,6 +53,7 @@ export default {
   top: 0;
   bottom: 0;
   width: 20px;
+  /* style='fill:#fff;' */
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 25 25' fill-rule='evenodd'%3E%3Cpath d='M16.036 18.455l2.404-2.405 5.586 5.587-2.404 2.404zM8.5 2C12.1 2 15 4.9 15 8.5S12.1 15 8.5 15 2 12.1 2 8.5 4.9 2 8.5 2zm0-2C3.8 0 0 3.8 0 8.5S3.8 17 8.5 17 17 13.2 17 8.5 13.2 0 8.5 0zM15 16a1 1 0 1 1 2 0 1 1 0 1 1-2 0'%3E%3C/path%3E%3C/svg%3E") center / contain no-repeat;
 }
 

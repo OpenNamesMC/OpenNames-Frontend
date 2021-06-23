@@ -49,7 +49,7 @@
       </div>
 
       <!-- User information -->
-      <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5">
+      <div class="userdata rounded-md bg-green-100 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">User information</p>
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <p><b>Username</b></p>
@@ -62,7 +62,8 @@
         <p>{{ userData.lifetimeViews }}</p>
       </div>
 
-      <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5 h-40 overflow-auto">
+      <!-- Name history -->
+      <div class="userdata rounded-md bg-green-100 dark:bg-gray-700 shadow p-5 h-40 overflow-auto">
         <p class="text-lg"> Name history</p>
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <div v-for="(value, index) in reversedNameHistory" v-bind:key="index">
@@ -71,13 +72,14 @@
         </div>
       </div>
 
-    <div class="userdata rounded-md p-5 bg-blue-100 shadow dark:bg-gray-700 ">
+    <!-- Heads -->
+    <div class="userdata rounded-md p-5 bg-green-100 shadow dark:bg-gray-700 ">
         <p class="text-lg">Heads</p>
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
-        WIP
+        <p><b>WIP</b></p>
     </div>
 
-      <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5">
+      <div class="userdata rounded-md bg-green-100 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">Hypixel stats</p>
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <p><b>WIP</b></p>
