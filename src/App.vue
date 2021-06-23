@@ -1,24 +1,22 @@
 <template>
-  <div class="dark:bg-gray-800 relative mx-auto overflow-auto">
-    <div class="pb-32">
+  <div class="dark:bg-gray-800 relative mx-auto overflow-auto h-full">
       <Navbar />
-      <router-view />
-    </div>
-    <!-- <div class="absolute bottom-0 w-full">
-      <Footer />
-    </div> -->
+      <div class="flex-wrapper">
+        <router-view />
+        <Footer />
+      </div>
   </div>
 </template>
 
 <script>
-// import Footer from './components/Footer.vue'
+import Footer from './components/Footer.vue'
 import Navbar from './components/Navbar.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    // Footer
+    Footer
   }
 }
 </script>
