@@ -24,7 +24,6 @@
       <div class="justify-end p-4 flex">
         <ThemeToggle @changeTheme="toggleLogo"/>
       </div>
-
     </div>
   </div>
 </template>
@@ -32,7 +31,6 @@
 <script>
 import Search from './comps/Search.vue'
 import ThemeToggle from './comps/ThemeToggle.vue'
-
 
 export default {
   components: { Search, ThemeToggle },

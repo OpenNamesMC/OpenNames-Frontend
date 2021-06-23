@@ -87,8 +87,4 @@ export default {
     margin-left: 10%;
     text-align: left;
 }
-
-p {
-    
-}
 </style>

@@ -3,7 +3,7 @@ const { default: axios } = require("axios");
 
 async function getUserData(identifier) {
     // get user data by name/uuid
-    
+
     if (identifier == undefined) {
         return
     }
@@ -12,13 +12,13 @@ async function getUserData(identifier) {
     }
 
     const apiUrl = "https://api.opennam.es"
-    
+
     try {
         const data = await axios.get(`${apiUrl}/search?query=${identifier}`)
         // console.log(data)
         // console.log("returned data", data.data)
         if (!('name_history' in data.data) && !('unixDropTime' in data.data)) {
-            return {name_history: [], error: "Name is avaible"}
+            return { name_history: [], error: "Name is avaible" }
         }
 
         if ('unixDropTime' in data.data) {
@@ -29,9 +29,9 @@ async function getUserData(identifier) {
         data.data.monthlyViews = data.data.monthlyViews || '1'
         data.data.lifetimeViews = data.data.lifetimeViews || '1'
         return data.data
-    } catch(err) {
+    } catch (err) {
         console.error("error", err)
-        return {name_history: [], error: err}
+        return { name_history: [], error: err }
     }
 }
 
@@ -39,7 +39,7 @@ async function getPopularUsers() {
     // get top 10 players with most monthly searches
 
     const apiUrl = "https://api.opennam.es"
-    let ret = {popular: [], err: ""}
+    let ret = { popular: [], err: "" }
 
     try {
         const data = await axios.get(`${apiUrl}/leaderboard`)
@@ -53,7 +53,7 @@ async function getPopularUsers() {
         });
         return ret
 
-    } catch(err) {
+    } catch (err) {
         console.error("error", err)
         ret.err = err
         return ret
@@ -68,7 +68,7 @@ async function getUserOutfit(UUID) {
         console.warn("Can't get outfit of empty UUID")
         return
     }
-    
+
     const url = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://sessionserver.mojang.com/session/minecraft/profile/") + UUID
     try {
         // get data from API
@@ -84,15 +84,15 @@ async function getUserOutfit(UUID) {
         console.log(decodedData.textures)
         if ('CAPE' in decodedData.textures) {
             cape = decodedData.textures.CAPE.url
-        } 
-        
+        }
+
         const skin = decodedData.textures.SKIN.url
         console.log(skin, cape)
-        return {skin, cape}
-        
-    } catch(e) {
+        return { skin, cape }
+
+    } catch (e) {
         console.error(e)
     }
-} 
+}
 
-export default {getUserData, getPopularUsers, getUserOutfit}
+export default { getUserData, getPopularUsers, getUserOutfit }

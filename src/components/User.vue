@@ -76,7 +76,6 @@
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         WIP
     </div>
-    <!-- <div /> -->
 
       <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">Hypixel stats</p>
@@ -185,8 +184,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
 .userdata {
   text-align: left;
 }
@@ -198,6 +195,4 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-
 </style>
