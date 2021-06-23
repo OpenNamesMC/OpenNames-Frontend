@@ -13,7 +13,7 @@
       <div v-if="showPopular">
         <div class="grid gap-4 md:grid-cols-3 grid-cols-1 p-4 ">
           <div v-for="index in getPopularUserCount()" v-bind:key="index">
-            <div v-on:click="pushUser(popular.popular[index].name)" class="bg-gradient-to-r from-red-100 to-blue-100 dark:from-black dark:to-black shadow cursor-pointer p-5 m-auto rounded-md h-36">
+            <div v-on:click="pushUser(popular.popular[index].name)" class="shadow-md rounded-md bg-gradient-to-r from-red-100 to-blue-100 dark:from-gray-900 dark:to-gray-900 cursor-pointer p-5 m-auto h-36">
               <div class="grid grid-cols-2 gap-4 items-center justify-center m-auto">
                 <img :src="`https://crafatar.com/renders/head/${popular.popular[index].UUID}?size=50`" alt="">
                   <div class="m-auto">
@@ -75,12 +75,12 @@ export default {
 
       getPopularUsers: async function() {
         api.getPopularUsers().then( data => {
-          console.log(data)
+          // console.log(data)
           if (!data.err) {
             this.popular.popular = data.popular
             this.popular.err = data.err.message
             this.popular.done = true
-            console.log(this.popular)
+            // console.log(this.popular)
             return true
           } else {
             this.popular.err = data.err.message

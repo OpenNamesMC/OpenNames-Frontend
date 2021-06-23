@@ -1,20 +1,22 @@
 const { default: axios } = require("axios");
 
 
-
 async function getUserData(identifier) {
-    const apiUrl = "https://api.opennam.es"
-
+    // get user data by name/uuid
+    
     if (identifier == undefined) {
         return
     }
     if (identifier.length > 20) {
         identifier = identifier.replaceAll("-", "")
     }
+
+    const apiUrl = "https://api.opennam.es"
+    
     try {
         const data = await axios.get(`${apiUrl}/search?query=${identifier}`)
-        console.log(data)
-        console.log("returned data", data.data)
+        // console.log(data)
+        // console.log("returned data", data.data)
         if (!('name_history' in data.data) && !('unixDropTime' in data.data)) {
             return {name_history: [], error: "Name is avaible"}
         }
@@ -34,6 +36,8 @@ async function getUserData(identifier) {
 }
 
 async function getPopularUsers() {
+    // get top 10 players with most monthly searches
+
     const apiUrl = "https://api.opennam.es"
     let ret = {popular: [], err: ""}
 
@@ -55,32 +59,40 @@ async function getPopularUsers() {
         return ret
 
     }
-
-
 }
 
-// // sample data
-// async function getUserData(identifier) {
-//     console.log(identifier)
-//     return {
-//         "name": "vqpa",
-//         "uuid": "dc4e2122b70b46c489596cd0337246c2",
-//         "name_history": [
-//             {
-//                 "name": "Rolyatevol"
-//             },
-//             {
-//                 "name": "Barometer",
-//                 "changedToAt": 1551141789000
-//             },
-//             {
-//                 "name": "vqpa",
-//                 "changedToAt": 1623006629000
-//             }
-//         ],
-//         "views": 69
-//     }
-// }
+async function getUserOutfit(UUID) {
+    // get skins and capes of a player
 
+    if (UUID == undefined || UUID == "") {
+        console.warn("Can't get outfit of empty UUID")
+        return
+    }
+    
+    const url = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://sessionserver.mojang.com/session/minecraft/profile/") + UUID
+    try {
+        // get data from API
+        let data = await axios.get(url)
+        //data.data = JSON.parse(data.data.contents)
+        const res = JSON.parse(data.data.contents)
+        console.log(res)
+        const base64Encoded = res.properties[0].value
+        const decodedData = JSON.parse(window.atob(base64Encoded))
+        console.log(decodedData)
 
-export default {getUserData, getPopularUsers}
+        let cape = null
+        console.log(decodedData.textures)
+        if ('CAPE' in decodedData.textures) {
+            cape = decodedData.textures.CAPE.url
+        } 
+        
+        const skin = decodedData.textures.SKIN.url
+        console.log(skin, cape)
+        return {skin, cape}
+        
+    } catch(e) {
+        console.error(e)
+    }
+} 
+
+export default {getUserData, getPopularUsers, getUserOutfit}

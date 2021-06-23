@@ -11,9 +11,6 @@
 
 <script>
 
-// import SkinRender from 'minerender/src/skin/index.js'
-// import {skinview3d} from 'skinview3d/bundles/skinview3d.bundle.js'
-// import skinview3d from 'skinview3d'
 var skinview3d = require("skinview3d")
 
 export default {

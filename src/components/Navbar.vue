@@ -1,22 +1,29 @@
 <template>
   <div>
-    <div class="bg-white dark:bg-gray-900 shadow grid grid-cols-3">
+    <div class="bg-blue-100 dark:bg-gray-900 shadow grid grid-cols-3 p-2">
         <div class=" place-items-left p-4 flex">
-            <button v-on:click="home" class="shadow-md rounded bg-red-400  dark:bg-red-500 
-              hover:bg-red-300 text-white m-2 p-2 pl-4 pr-4 justify-start">
-                <p class="font-semibold text-xs">Home</p>
-            </button>
+
+            <div class="flex flex-cols-1 md:flex-cols-2 items-start cursor-pointer" v-on:click="$router.push('/')">
+              <div v-if="theme == 'light'">
+                <img src="/LogoDark.png" class="h-10 object-contain" />
+              </div>
+              <div v-else>
+                <img src="/Logo.png" class="h-10 object-contain" />
+              </div>
+
+              <span v-if="showLogoText" class="dark:text-white top text-gray-800 left-0 p-2 font-semibold">
+                <b>OpenNames</b>
+              </span>
+            </div>
         </div>
 
         <div class="m-auto items-center text-center justify-center">
          <search />
         </div>
         
-        <div class="bg-white dark:bg-gray-900 justify-end p-4 flex">
-          <button v-on:click="switchScheme" class="shadow-md rounded dark:bg-white bg-black hover:bg-grey-900 text-white dark:text-gray-700 m-2 p-2 pl-4 pr-4">
-            <p class="font-semibold text-xs">{{ otherMode }}</p>
-          </button>
-        </div>
+      <div class="justify-end p-4 flex">
+        <ThemeToggle @changeTheme="toggleLogo"/>
+      </div>
 
     </div>
   </div>
@@ -24,37 +31,45 @@
 
 <script>
 import Search from './comps/Search.vue'
-export default {
-  components: { Search },
-  methods: {
-    home: function() {
-      this.$router.push('/')
-    },
-    switchScheme: function() {
-      let doc = document.getElementsByTagName("body")[0]
+import ThemeToggle from './comps/ThemeToggle.vue'
 
-      if (this.otherMode == "dark") {
-        doc.className = "dark bg-gray-800";
-        this.otherMode = "light"
-        
-      } else {
-        doc.className = "light bg-white";
-        this.otherMode = "dark"
-      }
-    }
-  },
+
+export default {
+  components: { Search, ThemeToggle },
   data: function() {
     return {
-      otherMode: "dark",
+      logoPath: '/LogoDark.png',
+      theme: '',
+      showLogoText: true,
+      windowWidth: window.innerWidth,
     }
   },
+  watch: {
+    windowWidth: function(newWidth) {
+      // console.log(newWidth)
+      this.showLogoText = newWidth > 768
+    }
+  },
+  methods: {
+    toggleLogo: function(val) {
+      console.log(val)
+    },
 
+  },
+  mounted() {
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth
+    })
+    this.showLogoText = window.innerWidth > 768
+  },
 }
-// document.getElementsByTagName("body")[0].className = "dark";  
 </script>
 
 <style>
-
+.lightLogo {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+}
 </style>
 
 

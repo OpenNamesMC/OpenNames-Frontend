@@ -13,7 +13,6 @@
       <!-- If the name is "illegal" -->
         <div v-if="isIllegal() && (userData.name == undefined)" class="bg-red-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2"> 
           <p class="text-3xl p-5  text-white">{{ $route.params.id }} is invalid</p>
-          <!-- <p class="text-2xl p-5 text-white">{{ userData.views + '' }} Searches</p> -->
           <p class="text-2xl p-5 text-white">{{ userData.monthlyViews }} Searches (monthly)</p>
         </div>
 
@@ -21,7 +20,6 @@
       <div v-else-if="userData.error == 'Name is avaible'">
         <div class="bg-green-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2"> 
           <p class="text-3xl p-5  text-white">{{ $route.params.id }} is avaible*</p>
-          <!-- <p class="text-2xl p-5 text-white">{{ userData.views + '' }} Searches</p> -->
           <p class="text-2xl p-5 text-white">{{ (userData.monthlyViews || '1' ) }} Searches (monthly)</p>
 
         </div>
@@ -44,18 +42,16 @@
     <div v-else class="grid gap-4 md:grid-cols-2 grid-cols-1">
 
       <!-- Skin rendering -->
-      <div class="dark:bg-gray-900 rounded-md bg-gray-200 row-span-2 align-middle">
+      <div class="dark:bg-gray-900 rounded-md bg-gray-200 shadow row-span-2 align-middle">
         <div class="flex items-center justify-center">
           <renderer :name=userData.uuid />
-          <!-- <img style="position: relative;" :src="`https://crafatar.com/renders/body/${userData.uuid}`" alt="Skin render" /> -->
-          <!-- Skin: WIP -->
         </div>
       </div>
 
       <!-- User information -->
       <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">User information</p>
-        <hr class="mb-2 mt-2">
+        <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <p><b>Username</b></p>
         <p>{{ userData.name }}</p>
         <p><b>UUID</b></p>
@@ -68,24 +64,23 @@
 
       <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5 h-40 overflow-auto">
         <p class="text-lg"> Name history</p>
-        <hr class="mb-2 mt-2">
-          <div v-for="(value, index) in userData.name_history.reverse()" v-bind:key="index">
-            <p v-on:click="toUser(value.name)" class="cursor-pointer" ><b>{{ userData.name_history.length - index}}. {{ value.name }}</b></p>
-            <p>{{ toTimestamp(value.changedToAt) }}</p>
-            <!-- <p v-if="value.changedToAt == undefined">Dropping soon</p> -->
-          </div>
+        <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
+        <div v-for="(value, index) in reversedNameHistory" v-bind:key="index">
+          <p v-on:click="toUser(value.name)" class="cursor-pointer" ><b>{{ userData.name_history.length - index}}. {{ value.name }}</b></p>
+          <p>{{ toTimestamp(value.changedToAt) }}</p>
+        </div>
       </div>
 
-    <div class="userdata rounded-md p-5 bg-blue-100 dark:bg-gray-700 ">
+    <div class="userdata rounded-md p-5 bg-blue-100 shadow dark:bg-gray-700 ">
         <p class="text-lg">Heads</p>
-        <hr class="mb-2 mt-2">
+        <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         WIP
     </div>
     <!-- <div /> -->
 
       <div class="userdata rounded-md bg-green-50 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">Hypixel stats</p>
-        <hr class="mb-2 mt-2">
+        <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <p><b>WIP</b></p>
 
       </div>
@@ -101,20 +96,16 @@ import api from '../apiHandler.js'
 import renderer from "./comps/PlayerModel"
 
 export default {
-  // name: 'User',
   components: {
     renderer
   },
 
   created() {
-    console.log(this.$route.params.id)
     api.getUserData(this.$route.params.id).then( userData => {
       this.userData = userData
-      // userData.views = userData.views.toString()
-      this.show = true
-      // if (userData.error == undefined || userData.error == "") {
-      //   this.show = true
-      // }
+      this.reversedNameHistory = userData.name_history.reverse()
+      this.show = true 
+
     })
   },
   
@@ -129,10 +120,11 @@ export default {
       }
       api.getUserData(to.params.id).then( userData => {
         this.userData = userData
-        
-        // if (userData.error == undefined || userData.error == "") {
-        //   this.show = true
-        // }
+        try {
+          this.reversedNameHistory = userData.name_history.reverse()
+        } catch(e) {
+          console.warn(e)
+        }
         this.show = true
       })
     }
@@ -184,7 +176,8 @@ export default {
         "name_history": [],
         "views": "--"
       },
-      show: false
+      show: false,
+      reversedNameHistory: []
     }
   },
 }
