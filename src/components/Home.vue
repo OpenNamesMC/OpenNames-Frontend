@@ -2,11 +2,13 @@
   <div class="dark:bg-gray-800 dark:text-white">
       <!-- Title -->
       <div class=" text-center p-10">
-          <p class="text-4xl w-full font-semibold ">OpenNam.es - Everything minecraft names</p>
+          <div class="text-6xl w-full font-semibold ">
+            <div>OpenNames</div>
+          </div>
       </div>
 
       <div class="text-center">
-        <p class="text-3xl w-full font-sans p-4 ">Popular names this month</p>
+        <p class="text-3xl w-full font-sans p-4 text-gray-800 dark:text-gray-300">Popular names this month</p>
       </div>
 
       <!-- List of popular accounts -->

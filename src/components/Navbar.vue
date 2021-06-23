@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-blue-100 dark:bg-gray-900 shadow grid grid-cols-3 p-2">
+    <div class="bg-gray-200 dark:bg-gray-900 shadow grid grid-cols-3 p-2">
         <div class=" place-items-left p-4 flex">
 
             <div class="flex flex-cols-1 md:flex-cols-2 items-start cursor-pointer" v-on:click="$router.push('/')">
@@ -20,7 +20,7 @@
         <div class="m-auto items-center text-center justify-center">
          <search />
         </div>
-        
+
       <div class="justify-end p-4 flex">
         <ThemeToggle @changeTheme="toggleLogo"/>
       </div>
