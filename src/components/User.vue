@@ -43,7 +43,7 @@
 
       <!-- Skin rendering -->
       <div class="dark:bg-gray-900 rounded-md bg-gray-200 shadow row-span-2 align-middle">
-        <div class="flex items-center justify-center">
+        <div class="flex justify-center">
           <renderer :name=userData.uuid />
         </div>
       </div>
@@ -60,6 +60,8 @@
         <p>{{ userData.monthlyViews }}</p>
         <p><b>Searches (all)</b></p>
         <p>{{ userData.lifetimeViews }}</p>
+        <p><b>Data last updated</b></p>
+        <p>{{ toTimestamp(userData.lastUpdated) }}</p>
       </div>
 
       <!-- Name history -->
@@ -141,7 +143,7 @@ export default {
       var hours = ("0" + date_ob.getHours()).slice(-2)
       var minutes = ("0" + date_ob.getMinutes()).slice(-2)
       var seconds = ("0" + date_ob.getSeconds()).slice(-2)
-      return year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds
+      return date + "." + month + "." + year + " " + hours + ":" + minutes + ":" + seconds
     },
     toUser: function(user) {
       console.log(user)

@@ -4,8 +4,7 @@
 
       <div class="flex-wrapper">
         <router-view />
-        <br><br>
-        <Footer />
+        <Footer class="mt-5" />
       </div>
   </div>
 </template>

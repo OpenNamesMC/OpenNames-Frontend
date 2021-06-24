@@ -51,8 +51,8 @@ export default {
     mounted() {
         let settings = {
             canvas: document.getElementById("skin_container"),
-            width: 300,
-            height: 400,
+            width: 450,
+            height: 440,
             alpha: true,
             skin: "https://crafatar.com/skins/" + this.name
         }
