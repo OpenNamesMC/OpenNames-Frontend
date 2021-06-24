@@ -58,12 +58,11 @@
           <div class="grid gap-4 md:grid-cols-3 grid-cols-1 p-4 ">
             <div v-for="index in getPopularUserCount()" v-bind:key="index">
               <div v-on:click="pushUser(popular.popular[index].name)" class="shadow-md rounded-md bg-gradient-to-r from-red-100 to-blue-100 dark:from-gray-900 dark:to-gray-900 cursor-pointer p-3 m-auto h-32">
-                <div class="grid grid-cols-2 gap-4 items-center justify-center m-auto">
-                  <img :src="`https://crafatar.com/renders/head/${popular.popular[index].UUID}?size=50`" alt="">
+                <div class="flex gap-4 items-center justify-center py-3">
                     <div class="m-auto">
-                        <p class="font-bold text-md">{{ popular.popular[index].name }}</p>
-                        <!-- <hr class="divider"> -->
-                        <p class="text-sm">Searches: {{ popular.popular[index].monthlyViews }}</p>
+                        <p class="font-bold text-xl">{{ popular.popular[index].name }}</p>
+                        <p class="text-md">Searches: {{ popular.popular[index].monthlyViews }} (monthly)</p>
+                        <p class="text-md">soon dropping</p>
                     </div>
                 </div>
               </div>

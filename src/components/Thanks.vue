@@ -77,7 +77,7 @@ export default {
                 },
                 {
                     name: "Everyone else that gave tipps or helped",
-                    desc: "Quite a few people gave us tipps on how to do things, recommended libraries, said which design looks better, etc. Notable people are Gobbo, Teun and jordan."
+                    desc: "Quite a few people gave us tipps on how to do things, recommended libraries, said which design looks better, etc. Notable people are Gobbo, Teun, jordan and tenscape."
                 }
             ]
         }

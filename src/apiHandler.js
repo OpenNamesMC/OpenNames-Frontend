@@ -95,4 +95,7 @@ async function getUserOutfit(UUID) {
     }
 }
 
-export default { getUserData, getPopularUsers, getUserOutfit }
+async function getDroppingSoon() {
+    return []
+}
+export default { getUserData, getPopularUsers, getUserOutfit, getDroppingSoon }

@@ -49,7 +49,7 @@
       </div>
 
       <!-- User information -->
-      <div class="userdata rounded-md bg-blue-100 dark:bg-gray-700 shadow p-5">
+      <div class="userdata rounded-md bg-blue-200 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">User information</p>
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <p><b>Username</b></p>
@@ -65,7 +65,7 @@
       </div>
 
       <!-- Name history -->
-      <div class="userdata rounded-md bg-blue-100 dark:bg-gray-700 shadow p-5 h-40 overflow-auto">
+      <div class="userdata rounded-md bg-blue-200 dark:bg-gray-700 shadow p-5 h-40 overflow-auto">
         <p class="text-lg"> Name history</p>
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <div v-for="(value, index) in reversedNameHistory" v-bind:key="index">
@@ -75,13 +75,13 @@
       </div>
 
     <!-- Heads -->
-    <div class="userdata rounded-md p-5 bg-blue-100 shadow dark:bg-gray-700 ">
+    <div class="userdata rounded-md p-5 bg-blue-200 shadow dark:bg-gray-700 ">
         <p class="text-lg">Heads</p>
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <p><b>WIP</b></p>
     </div>
 
-      <div class="userdata rounded-md bg-blue-100 dark:bg-gray-700 shadow p-5">
+      <div class="userdata rounded-md bg-blue-200 dark:bg-gray-700 shadow p-5">
         <p class="text-lg">Hypixel stats</p>
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <p><b>WIP</b></p>
@@ -146,7 +146,6 @@ export default {
       return date + "." + month + "." + year + " " + hours + ":" + minutes + ":" + seconds
     },
     toUser: function(user) {
-      console.log(user)
       this.$router.push({
           name: "user",
           params: {"id": user}
