@@ -38,6 +38,25 @@
         </div>
       </div>
 
+      <!-- TODO: fix. Should also appear for illegal names (and probably taken ones too) -->
+      <div v-if="userData.dropping || userData.error == 'Name is avaible'" class="py-8">
+        <!-- Show previous owners -->
+        <p class="text-3xl pb-8">Previous owners</p>
+
+        <p v-if="userData.owner_history.length == 0">
+          No previous owners
+        </p>
+
+        <div v-for="(user, index) in userData.owner_history" v-bind:key="index" class="rounded-md bg-blue-200 dark:bg-gray-700 shadow p-5 mb-5 text-left overflow-auto h-40">
+          <div v-for="(hist, index2) in user.name_history" v-bind:key="index2">
+            <p class="cursor-pointer" v-on:click="toUser(user.name_history[user.name_history.length - index2 -1].name)"><b>
+              {{ user.name_history.length - index2 }}. {{ user.name_history[user.name_history.length - index2 -1].name }}
+            </b></p>
+            <p>{{ toTimestamp(user.name_history[user.name_history.length - index2 -1].changedToAt) }}</p>
+          </div>
+        </div>
+      </div>
+
     <!-- If name is taken -->
     <div v-else class="grid gap-4 md:grid-cols-2 grid-cols-1">
 

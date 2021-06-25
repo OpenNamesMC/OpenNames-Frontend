@@ -1,7 +1,7 @@
 # General 
- - [] Show `owner_history` for names that drop soon/avaible
+ - [X] Show `owner_history` for names that drop soon/avaible
  - [] Make a `dropping soon` page (pagination, parameters, ...). waiting for backend
- 
+
  
  
 # Login system
