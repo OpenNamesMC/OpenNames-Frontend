@@ -46,7 +46,8 @@ async function getPopularUsers() {
         data.data.forEach(element => {
             ret.popular.push({
                 name: element.name,
-                UUID: element.uuid,
+                uuid: element.uuid,
+                lastUpdated: element.lastUpdated,
                 monthlyViews: element.monthlyViews || '0',
                 lifetimeViews: element.lifetimeViews || '0',
             })

@@ -7,26 +7,21 @@
         <div v-for="(user, index) in popular.popular" v-bind:key="index">
             
             <div v-on:click="toUser(user.name)" class="bg-blue-200 dark:bg-gray-900 grid grid-cols-1 md:grid-cols-2 p-6 m-4 rounded-md shadow-md cursor-pointer items-center">
-                <img :src="`https://crafatar.com/renders/body/${user.UUID}`" class="mx-auto pb-3"/>
-                <div class="mx-auto w-full">
-                    <!-- <p class="text-xl">{{ user.name }}</p> -->
-                          <div class="userdata rounded-md bg-blue-100 dark:bg-gray-700 dark:text-white shadow p-4 text-left">
-                            <p class="text-lg">User information</p>
-                            <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
-                            <p><b>Username</b></p>
-                            <p>{{ user.name }}</p>
-                            <p><b>UUID</b></p>
-                            <p>{{ user.uuid }}</p>
-                            <p><b>Searches (month)</b></p>
-                            <p>{{ user.monthlyViews }}</p>
-                            <p><b>Searches (all)</b></p>
-                            <p>{{ user.lifetimeViews }}</p>
-                            <p><b>Data last updated</b></p>
-                            <p>{{ toTimestamp(user.lastUpdated) }}</p>
-                        </div>
+                <img v-if="innerWidth > 768" :src="`https://crafatar.com/renders/body/${user.uuid}`" class="mx-auto pb-3"/>
+                <img v-else :src="`https://crafatar.com/renders/head/${user.uuid}`" class="mx-auto pb-3"/>
+                <div class="mx-auto w-full overscroll-contain overflow-hidden ">
+                    <div class="userdata rounded-md bg-blue-100 dark:bg-gray-700 dark:text-white shadow p-4 text-left">
+                        <p class="text-lg">User information</p>
+                        <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
+                        <p><b>Username</b></p>
+                        <p>{{ user.name }}</p>
+                        <p><b>Searches (month)</b></p>
+                        <p>{{ user.monthlyViews }}</p>
+                        <p><b>Searches (all)</b></p>
+                        <p>{{ user.lifetimeViews }}</p>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
   </div>
@@ -40,7 +35,8 @@ export default {
     data: function() {
         return {
             show: false,
-            popular: {}
+            popular: {},
+            innerWidth: window.innerWidth,
         }
     },
 

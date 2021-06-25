@@ -108,3 +108,4 @@ dist
 
 # I often make zip files. Don't include those lol
 *.zip
+.DS_Store
