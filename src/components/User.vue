@@ -35,7 +35,7 @@
       <div class="p-5 items-center justify-center">
         <p class="text-1xl text-white">{{ userData.monthlyViews }} Searches (monthly)</p>
         <!-- <p class="text-1xl text-white">Dropping in {{ userData.stringDropTime }}</p> -->
-        <VueCountdown :time="userData.unixDropTime - Math.floor(Date.now())" v-slot="{ days, hours, minutes, seconds }">
+        <VueCountdown class="text-white" :time="userData.unixDropTime - Math.floor(Date.now())" v-slot="{ days, hours, minutes, seconds }">
           <span v-if="days">{{ days }}d </span>
           <span v-if="hours">{{ hours }}h </span>
           <span v-if="minutes">{{ minutes }}min </span>
