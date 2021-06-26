@@ -4,12 +4,12 @@
         <div class=" place-items-left p-4 flex">
 
             <div class="flex flex-cols-1 md:flex-cols-2 items-start cursor-pointer" v-on:click="$router.push('/')">
-              <div v-if="theme == 'light'">
-                <img src="/LogoDark.png" class="h-10 object-contain" />
+              <div>
+                <img :src="'/LogoDark.png'" class="h-10 object-contain filter invert-0 dark:invert" />
               </div>
-              <div v-else>
+              <!-- <div v-else>
                 <img src="/Logo.png" class="h-10 object-contain" />
-              </div>
+              </div> -->
 
               <span v-if="showLogoText" class="dark:text-white top text-gray-800 left-0 p-2 font-semibold">
                 <b>OpenNames</b>
@@ -65,8 +65,8 @@ export default {
 
 <style>
 .lightLogo {
-  -webkit-filter: invert(1);
-  filter: invert(1);
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
 }
 </style>
 
