@@ -29,12 +29,13 @@ export default {
         },
         onClick() {
             // if we would add a check to prevent invalid names to be searched  - it would be here!
+            console.log(this.input)
                 this.$router.push({
                     name: "user",
                     params: {"id": this.input}
                 })
-                this.value = ""
-                this.input = ""
+                // this.value = ""
+                // this.input = ""
             }
     }
 }

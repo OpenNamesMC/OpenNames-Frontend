@@ -18,7 +18,9 @@ async function getUserData(identifier) {
         // console.log(data)
         // console.log("returned data", data.data)
         if (!('name_history' in data.data) && !('unixDropTime' in data.data)) {
-            return { name_history: [], error: "Name is avaible" }
+            data.data.error = "Name is avaible"
+            data.data.name_history = []
+            return data.data
         }
 
         if ('unixDropTime' in data.data) {
@@ -31,7 +33,8 @@ async function getUserData(identifier) {
         return data.data
     } catch (err) {
         console.error("error", err)
-        return { name_history: [], error: err }
+        // return { name_history: [], error: err }
+        return {name_history: [], owner_history: [], error: err}
     }
 }
 
