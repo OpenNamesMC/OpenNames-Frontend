@@ -32,7 +32,7 @@
                   <p class="text-md">Searches: {{ popular.popular[index-1].monthlyViews }} (monthly)</p>
                   <!-- If name is free -->
                   <div v-if="!popular.popular[index-1].unixDropTime">
-                    <p class="text-md">Name avaible</p>
+                    <p class="text-md">Name available</p>
                   </div>
                   <!-- If name is dropping soon -->
                   <div v-else>

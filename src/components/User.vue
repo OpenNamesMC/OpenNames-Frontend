@@ -16,10 +16,10 @@
         <p class="text-2xl p-5 text-white">{{ userData.monthlyViews }} Searches (monthly)</p>
     </div>
 
-    <!-- If name is avaible -->
-    <div v-else-if="userData.error == 'Name is avaible'">
+    <!-- If name is available -->
+    <div v-else-if="userData.error == 'Name is available'">
       <div class="bg-green-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2"> 
-        <p class="text-3xl p-5  text-white">{{ $route.params.id }} is avaible*</p>
+        <p class="text-3xl p-5  text-white">{{ $route.params.id }} is available*</p>
         <p class="text-2xl p-5 text-white">{{ (userData.monthlyViews || '1' ) }} Searches (monthly)</p>
 
       </div>
