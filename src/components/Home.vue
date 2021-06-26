@@ -115,6 +115,7 @@ export default {
     },
     created() {
       this.getPopularUsers().then( () => {
+        document.title = "OpenNames"
         this.showPopular = true
       })
     },

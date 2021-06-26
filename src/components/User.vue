@@ -133,9 +133,9 @@ export default {
   created() {
     api.getUserData(this.$route.params.id).then( userData => {
       this.userData = userData
+      document.title = `OpenNames - ${userData.name}`
       this.reversedNameHistory = userData.name_history.reverse()
       this.show = true 
-
     })
   },
   

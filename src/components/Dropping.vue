@@ -10,7 +10,9 @@
 
 <script>
 export default {
-
+  created() {
+    document.title = "OpenNames - dropping soon"
+  }
 }
 </script>
 

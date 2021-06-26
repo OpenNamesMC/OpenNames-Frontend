@@ -81,6 +81,9 @@ export default {
                 }
             ]
         }
+    },
+    created() {
+        document.title = "OpenNames - Thanks"
     }
 }
 </script>

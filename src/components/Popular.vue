@@ -43,6 +43,7 @@ export default {
     created() {
         this.getPopularUsers().then( (res) => {
             console.log(res)
+            document.title = "OpenNames - Popular"
             this.show = true
         })
     },
