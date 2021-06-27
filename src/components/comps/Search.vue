@@ -1,9 +1,9 @@
 <template>
 <!-- https://tailwindtemplates.io/search/ -->
-    <div class="bg-white dark:bg-gray-700 text-center flex rounded-xl">
+    <div class="bg-white dark:bg-gray-700 text-center flex rounded-xl ">
         <label class="searchLabel rounded-md">
             <!-- bg-gradient-to-r from-red-100 to-blue-100 dark:from-red-500 dark:to-blue-500 -->
-            <input @keyup.enter="onClick()" :value="value" @input="onInput" class="dark:text-white search rounded  w-full bg-gray-300 dark:bg-gray-700 p-3 shadow-md dark:placeholder-gray-500 placeholder-gray-400" type="text" placeholder="Notch">
+            <input @keyup.enter="onClick()" :value="value" @input="onInput" class="dark:text-white search rounded  w-full bg-gray-300 dark:bg-gray-700 p-3 shadow-md dark:placeholder-gray-500 placeholder-gray-400 focus:outline-none focus:ring-1 dark:focus:ring-blue-200" type="text" placeholder="Notch">
     </label>
     </div>
 </template>

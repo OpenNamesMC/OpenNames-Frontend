@@ -30,13 +30,15 @@
         <hr class="mb-2 mt-2 border-gray-700 dark:border-gray-300">
 
         <div class="p-4 lg:p-2  m-1">
-          <span class="p-4 lg:p-2 text-md">Views</span>
+          <span class="p-4 lg:p-2 text-lg">Views</span>
           <input type="number" min="0" class="dark:bg-gray-600 rounded shadow w-20 p-1 focus:outline-none focus:ring dark:focus:ring-blue-200" v-model="searchParams.views">
 
           <br>
-          <button v-on:click="searchNames" class="m-2 p-2 mt-8 px-4 dark:bg-gray-500 bg-gray-300 color-white rounded shadow hover:outline-none hover:ring dark:hover:ring-blue-200">
-              Search
-          </button>
+          <div class="text-center">
+            <button v-on:click="searchNames" class="m-2 p-2 mt-8 px-4 dark:bg-gray-500 bg-gray-300 color-white rounded shadow hover:bg-gray-200 dark:hover:bg-gray-400">
+                Search
+            </button>
+          </div>
         </div>
 
         
