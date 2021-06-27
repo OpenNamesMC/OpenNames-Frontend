@@ -18,13 +18,12 @@ async function getUserData(identifier) {
         // console.log(data)
         // console.log("returned data", data.data)
         if (!('name_history' in data.data) && !('unixDropTime' in data.data)) {
-            data.data.error = "Name is available"
             data.data.name_history = []
+            data.data.available = true
             return data.data
         }
 
         if ('unixDropTime' in data.data) {
-            data.data.error = "name is available soon"
             data.data.dropping = true
             data.data.name_history = []
         }

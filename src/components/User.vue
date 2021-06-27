@@ -10,14 +10,20 @@
     <!--When name is loaded -->
 
     <div v-else>
+    <!-- Error fetching data -->
+    <div v-if="userData.error" class="bg-red-600 p-4 rounded shadow-md">
+      <p class="text-xl">Error fetching data</p>
+      <p class="text-md">{{ userData.error.message }}</p>
+    </div>
+
     <!-- If the name is "illegal" -->
-    <div v-if="isIllegal() && (userData.name == undefined)" class="bg-red-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2"> 
+    <div v-else-if="isIllegal() && (userData.name == undefined)" class="bg-pink-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2"> 
         <p class="text-3xl p-5  text-white">{{ $route.params.id }} is invalid</p>
         <p class="text-2xl p-5 text-white">{{ userData.monthlyViews }} Searches (monthly)</p>
     </div>
 
     <!-- If name is available -->
-    <div v-else-if="userData.error == 'Name is available'">
+    <div v-else-if="userData.available">
       <div class="bg-green-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2"> 
         <p class="text-3xl p-5  text-white">{{ $route.params.id }} is available*</p>
         <p class="text-2xl p-5 text-white">{{ (userData.monthlyViews || '1' ) }} Searches (monthly)</p>
@@ -29,12 +35,12 @@
     </div>
 
     <!-- If name is dropping soon -->
-    <div v-else-if="userData.dropping" class="bg-yellow-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2 items-center justify-center"> 
+    <div v-else-if="userData.dropping" class="dark:bg-yellow-700 bg-yellow-600 p-4 rounded shadow-md grid gap-4 grid-cols-1 md:grid-cols-2 items-center justify-center"> 
       <p class="text-3xl p-5  text-white row-span-2">{{ $route.params.id }} is dropping soon</p>
     
       <div class="p-5 items-center justify-center">
         <p class="text-1xl text-white">{{ userData.monthlyViews }} Searches (monthly)</p>
-        <!-- <p class="text-1xl text-white">Dropping in {{ userData.stringDropTime }}</p> -->
+
         <VueCountdown class="text-white" :time="userData.unixDropTime - Math.floor(Date.now())" v-slot="{ days, hours, minutes, seconds }">
           <span v-if="days">{{ days }}d </span>
           <span v-if="hours">{{ hours }}h </span>
@@ -133,7 +139,11 @@ export default {
   created() {
     api.getUserData(this.$route.params.id).then( userData => {
       this.userData = userData
-      document.title = `OpenNames - ${userData.name}`
+      if (!userData.name) {
+        document.title = "OpenNames"
+      } else {
+        document.title = `OpenNames - ${userData.name}`
+      }
       this.reversedNameHistory = userData.name_history.reverse()
       this.show = true 
     })
