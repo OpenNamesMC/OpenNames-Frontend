@@ -76,7 +76,7 @@
         <p class="text-lg"> Name history</p>
         <hr class="mb-2 mt-2 border-gray-400 dark:border-gray-300">
         <div v-for="(value, index) in reversedNameHistory" v-bind:key="index">
-          <p v-on:click="toUser(value.name)" class="cursor-pointer" ><b>{{ userData.name_history.length - index}}. {{ value.name }}</b></p>
+          <p v-on:click="toUser(value.name)" class="cursor-pointer hover:underline" ><b>{{ userData.name_history.length - index}}. {{ value.name }}</b></p>
           <p>{{ toTimestamp(value.changedToAt) }}</p>
         </div>
       </div>
@@ -104,7 +104,7 @@
 
       <div v-for="(user, index) in userData.owner_history" v-bind:key="index" class="rounded-md bg-blue-200 dark:bg-gray-700 shadow p-5 mb-5 text-left overflow-auto max-h-40">
         <div v-for="(hist, index2) in user.name_history" v-bind:key="index2">
-          <p class="cursor-pointer" v-on:click="toUser(user.name_history[user.name_history.length - index2 -1].name)"><b>
+          <p class="cursor-pointer hover:underline" v-on:click="toUser(user.name_history[user.name_history.length - index2 -1].name)"><b>
             {{ user.name_history.length - index2 }}. {{ user.name_history[user.name_history.length - index2 -1].name }}
           </b></p>
           <p>{{ toTimestamp(user.name_history[user.name_history.length - index2 -1].changedToAt) }}</p>
@@ -153,6 +153,7 @@ export default {
       }
       api.getUserData(to.params.id).then( userData => {
         this.userData = userData
+        document.title = `OpenNames - ${userData.name}`
         try {
           this.reversedNameHistory = userData.name_history.reverse()
         } catch(e) {

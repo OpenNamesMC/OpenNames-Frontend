@@ -1,5 +1,8 @@
 # General 
  - [X] Show `owner_history` for names that drop soon/available
+ - [] Fix how "illegals" are displayed
+ - [] Make a loading animation for heads on the front page
+ - [] Display popular names that arent taken better (in /popular)
  - [] Make a `dropping soon` page (pagination, parameters, ...). waiting for backend
 
  

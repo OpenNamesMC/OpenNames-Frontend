@@ -16,7 +16,7 @@
       <br>
       <ul class="dark:text-white">
           <li v-for="(val, index) in contributors" v-bind:key="index">
-            <a :href="val.url">
+            <a class="hover:underline" :href="val.url">
                 <b><p>{{ val.name }}</p></b>
             </a>
             <p>{{ val.desc }}</p>
@@ -30,7 +30,7 @@
       <br>
       <ul class="dark:text-white">
           <li v-for="(val, index) in libs" v-bind:key="index">
-            <a :href="val.url">
+            <a class="hover:underline" :href="val.url">
                 <b><p>{{ val.name }}</p></b>
             </a>
             <p>{{ val.desc }}</p>

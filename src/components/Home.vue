@@ -28,15 +28,17 @@
                 </div>
                 <!-- If name is dropping soon / free -->
                 <div v-else class="py-3">
+                  <!-- {{ popular.popular[index-1] }} -->
                   <p class="font-bold text-xl">{{ popular.popular[index-1].name }}</p>
                   <p class="text-md">Searches: {{ popular.popular[index-1].monthlyViews }} (monthly)</p>
                   <!-- If name is free -->
-                  <div v-if="!popular.popular[index-1].unixDropTime">
+                  <div v-if="!popular.popular[index-1].dropping">
                     <p class="text-md">Name available</p>
                   </div>
                   <!-- If name is dropping soon -->
                   <div v-else>
-                    <p class="text-md">Dropping {{ toTimestamp(popular.popular[index-1].unixDropTime) }}</p>
+                    <p class="text-md">Dropping soon</p>
+                    <!-- <p class="text-md">Dropping {{ toTimestamp(popular.popular[index-1].unixDropTime) }}</p> -->
                   </div>
                 </div>
               </div>
@@ -104,6 +106,7 @@
 <script>
 // import copy from './comps/Copy.vue'
 import api from '../apiHandler.js'
+import userModule from './User.vue'
 
 export default {
     data: function() {
@@ -151,7 +154,10 @@ export default {
           }
         }
         )
-      }
+      },
+      toTimestamp: function(inp) {
+        return userModule.methods.toTimestamp(inp)
+      },
     },
 
 }

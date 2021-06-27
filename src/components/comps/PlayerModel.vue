@@ -2,7 +2,7 @@
     <div class="mt-3 mb-3">
         <canvas id="skin_container"></canvas>
         <div class="cursor-pointer">
-            <button v-on:click="toggleAnimation()">{{ currentAnimation }}</button>
+            <button class="outline-none focus:outline-none" v-on:click="toggleAnimation()">{{ currentAnimation }}</button>
         </div>
 
         <!-- <div class="grid py-2 m-2 grid-cols-1 bg-red-400 text-center  dark:bg-red-500 text-white hover:bg-red-300 rounded-md shadow w-10">
