@@ -7,8 +7,8 @@
         <div v-for="(user, index) in popular.popular" v-bind:key="index">
             
             <div v-on:click="toUser(user.name)" class="bg-blue-200 dark:bg-gray-900 grid grid-cols-1 md:grid-cols-2 p-6 m-4 rounded-md shadow-md cursor-pointer items-center">
-                <img v-if="innerWidth > 768" :src="`https://crafatar.com/renders/body/${user.uuid}`" class="mx-auto pb-3"/>
-                <img v-else :src="`https://crafatar.com/renders/head/${user.uuid}`" class="mx-auto pb-3"/>
+                <img v-if="innerWidth > 768" :src="`https://crafatar.com/renders/body/${user.uuid}`" alt="" class="mx-auto pb-3"/>
+                <img v-else :src="`https://crafatar.com/renders/head/${user.uuid}`" alt="No skin available" class="mx-auto pb-3"/>
                 <div class="mx-auto w-full overscroll-contain overflow-hidden ">
                     <div class="userdata rounded-md bg-blue-100 dark:bg-gray-700 dark:text-white shadow p-4 text-left">
                         <p class="text-lg">User information</p>
@@ -23,6 +23,14 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div v-else class="flex items-center text-center justify-center">
+      <div class="py-52">
+        <div v-if="!popular.err">
+            <div class="lds-ripple text-center border-green-900 "><div></div><div></div></div>
+            <p>Loading popular users...</p> 
+        </div>
+      </div>
     </div>
   </div>
 </template>

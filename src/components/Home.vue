@@ -13,24 +13,23 @@
 
 
       <!-- List of popular accounts -->
-      <div>
-        <div v-if="showPopular" class="text-center">
+      <div v-if="show">
+        <div class="text-center">
           <div class="grid gap-4 md:grid-cols-3 grid-cols-1 p-4 ">
             <div v-for="index in getPopularUserCount()" v-bind:key="index">
               <div v-on:click="pushUser(popular.popular[index-1].name)" class="shadow-md rounded-md bg-gradient-to-r from-red-100 to-blue-100 dark:from-gray-900 dark:to-gray-900 cursor-pointer p-3 m-auto h-32">
                 <!-- If name is taken -->
-                <div v-if="popular.popular[index-1].uuid" class="grid grid-cols-2 gap-4 items-center justify-center">
-                  <img :src="`https://crafatar.com/renders/head/${popular.popular[index-1].uuid}?size=50 `" alt="">
-                  <div class="m-auto">  
+                <div v-if="popular.popular[index-1].uuid" class="flex flex-cols-2 gap-4 items-center justify-center">
+                  <img class="py-2" :src="`https://crafatar.com/renders/head/${popular.popular[index-1].uuid}?size=50`" height="100" width="100" alt="">
+                  <div class="m-auto justify-right">  
                     <p class="font-bold text-md">{{ popular.popular[index-1].name }}</p>
-                    <p class="text-sm">Searches: {{ popular.popular[index-1].monthlyViews }}</p>
+                    <p class="text-sm">{{ popular.popular[index-1].monthlyViews }} views/month</p>
                   </div>
                 </div>
                 <!-- If name is dropping soon / free -->
                 <div v-else class="py-3">
-                  <!-- {{ popular.popular[index-1] }} -->
                   <p class="font-bold text-xl">{{ popular.popular[index-1].name }}</p>
-                  <p class="text-md">Searches: {{ popular.popular[index-1].monthlyViews }} (monthly)</p>
+                  <p class="text-md">{{ popular.popular[index-1].monthlyViews }} views/month</p>
                   <!-- If name is free -->
                   <div v-if="!popular.popular[index-1].dropping">
                     <p class="text-md">Name available</p>
@@ -50,16 +49,16 @@
         </div>
 
         <!-- If loading names -->
-        <div v-else class="flex items-center text-center justify-center">
-          {{ popular }}
-          <div class="py-52">
-            <div v-if="!popular.err">
-              <div class="lds-ripple text-center border-green-900 "><div></div><div></div></div>
-              <p>Loading popular users...</p> 
-            </div>
+      </div>
+      <div v-else class="flex items-center text-center justify-center">
+        <div class="py-52">
+          <div v-if="!popular.err">
+            <div class="lds-ripple text-center border-green-900 "><div></div><div></div></div>
+            <p>Loading popular users...</p> 
           </div>
         </div>
       </div>
+      
 
       <br>
       <div class="text-center">
@@ -69,7 +68,7 @@
 
       <!-- Show names that are dropping soon -->
       <div>
-        <div v-if="showPopular"  class="text-center">
+        <div v-if="show"  class="text-center">
           <div class="grid gap-4 md:grid-cols-3 grid-cols-1 p-4 ">
             <div v-for="index in getPopularUserCount()" v-bind:key="index">
               <div v-on:click="pushUser(popular.popular[index-1].name)" class="shadow-md rounded-md bg-gradient-to-r from-red-100 to-blue-100 dark:from-gray-900 dark:to-gray-900 cursor-pointer p-3 m-auto h-32">
@@ -90,7 +89,6 @@
 
         <!-- If loading names -->
         <div v-else class="flex items-center text-center justify-center">
-          {{ popular }}
           <div class="py-52">
             <div v-if="!popular.err">
               <div class="lds-ripple text-center border-green-900 "><div></div><div></div></div>
@@ -112,14 +110,17 @@ export default {
     data: function() {
       return {
         popularUserCount: 6,
-        popular: {popular: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], err: ""},
+        popular: {popular: [], err: ""},
         showPopular: false,
       }
     },
     created() {
+      for (let i=0;i<10;i++) {
+        this.popular.popular.push({name: "Loading...", monthlyViews: "loading...", })
+      }
       this.getPopularUsers().then( () => {
         document.title = "OpenNames"
-        this.showPopular = true
+        this.show = true
       })
     },
     // components: { }
