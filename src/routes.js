@@ -31,7 +31,11 @@ const routes = [
         path: '/',
         name: 'home',
         component: Home,
-    }
+    },
+    { 
+        path: '/:catchAll(.*)', 
+        redirect: '/user/404'
+      }
 ]
 
 const router = createRouter({
